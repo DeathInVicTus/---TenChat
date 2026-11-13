@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>TenChat — Смени орбиту: Полная история</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style/style.css">
+
+</head>
+<body>
+
+<canvas id="gameCanvas"></canvas>
+
+<div id="hud" class="d-none">
+  <h6 id="heroName">Герой</h6>
+  <div class="stat-row"><span class="label">⭐ Репутация</span><span class="value" id="statRep">0</span></div>
+  <div class="stat-row"><span class="label">🔥 Энергия</span><span class="value" id="statEnergy">100</span></div>
+  <div class="stat-row"><span class="label">🔗 Связи</span><span class="value" id="statConn">0</span></div>
+  <div class="progress mt-2"><div class="progress-bar" id="chapterBar" style="width: 0%"></div></div>
+  <div class="small text-center mt-1 opacity-75" id="chapterLabel">Глава 1</div>
+</div>
+
+<div id="chapterBadge" class="d-none">
+  <span id="chapterIcon">📖</span> <span id="chapterName">Пролог</span>
+</div>
+
+<div id="notification" class="notification"></div>
+
+<!-- Стартовый экран -->
+<div class="overlay" id="startScreen">
+  <div class="card-game text-center">
+    <div class="brand-logo mb-2">TenChat</div>
+    <h2 class="mb-2">Смени орбиту</h2>
+    <p class="text-white-50 mb-4">Интерактивная история о том, как один контакт меняет всё.<br>Выборы имеют значение. Концовок — несколько.</p>
+    
+    <button class="scenario-btn" onclick="startScenario(0)">
+      <span class="emoji">🎨</span>
+      <strong>Фрилансер → Крупный клиент</strong>
+      <p>6 глав. Один комментарий может привести к годовому контракту.</p>
+    </button>
+    <button class="scenario-btn" onclick="startScenario(1)">
+      <span class="emoji">🚀</span>
+      <strong>Идея → Команда стартапа</strong>
+      <p>6 глав. Преврати идею в питч и собери кофаундеров.</p>
+    </button>
+    <button class="scenario-btn" onclick="startScenario(2)">
+      <span class="emoji">🎤</span>
+      <strong>Эксперт → Спикер конференции</strong>
+      <p>6 глав. От тихого поста до федеральной сцены.</p>
+    </button>
+  </div>
+</div>
+
+<!-- Контейнер для сцен -->
+<div class="overlay hidden" id="sceneScreen">
+  <div class="dialog-scene" id="sceneContainer"></div>
+</div>
+
+<!-- Орбитальная фаза -->
+<div id="orbitHint" class="d-none" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:5;background:rgba(20,26,58,0.9);border:1px solid rgba(74,144,226,0.4);padding:12px 24px;border-radius:30px;font-size:0.95rem;backdrop-filter:blur(10px);"></div>
+
+<!-- Финальный экран -->
+<div class="overlay hidden" id="endScreen">
+  <div class="card-game text-center">
+    <div class="result-icon" id="resultIcon">🌟</div>
+    <h2 id="resultTitle">Новая орбита достигнута!</h2>
+    <p class="text-white-50 mb-3" id="resultText"></p>
+    <div class="mb-4 p-3" style="background:rgba(255,255,255,0.05);border-radius:12px;">
+      <div class="small opacity-75 mb-2">ВАША СТАТИСТИКА</div>
+      <div class="d-flex justify-content-around">
+        <div><div style="font-size:1.5rem;color:#FFA500;" id="finalRep">0</div><div class="small">Репутация</div></div>
+        <div><div style="font-size:1.5rem;color:#50E3C2;" id="finalConn">0</div><div class="small">Связей</div></div>
+        <div><div style="font-size:1.5rem;color:#4A90E2;" id="finalEnd">A</div><div class="small">Концовка</div></div>
+      </div>
+    </div>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+      <button class="btn-tenchat" onclick="restart()">Другая история</button>
+      <button class="btn btn-outline-light" onclick="window.open('https://tenchat.ru','_blank')">В TenChat →</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/script/canvas.js"></script>
+
+</body>
+</html>
